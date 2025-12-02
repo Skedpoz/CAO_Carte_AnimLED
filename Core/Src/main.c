@@ -18,10 +18,10 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "ssd1306.h"
+#include "fonts.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -113,12 +113,37 @@ int main(void)
   MX_USB_PCD_Init();
   /* USER CODE BEGIN 2 */
 
+  // --- ÉTAPE 1 : Gestion du Reset Matériel (Si connecté) ---
+    // On met la broche à 0 (Reset actif)
+    HAL_GPIO_WritePin(OLED_RST_GPIO_Port, OLED_RST_Pin, GPIO_PIN_RESET);
+    HAL_Delay(10); // Petite pause
+    // On met la broche à 1 (Fonctionnement normal)
+    HAL_GPIO_WritePin(OLED_RST_GPIO_Port, OLED_RST_Pin, GPIO_PIN_SET);
+    HAL_Delay(10); // Attendre que l'écran démarre
+
+    // --- ÉTAPE 2 : Initialisation de la librairie ---
+    // On appelle la fonction (sans "uint8_t" devant)
+    if (SSD1306_Init() != 0) {
+        // L'initialisation a réussi !
+
+        // --- ÉTAPE 3 : Afficher quelque chose ---
+        SSD1306_Fill(SSD1306_COLOR_BLACK); // Effacer l'écran
+
+        SSD1306_GotoXY(10, 10);            // Positionner le curseur
+        SSD1306_Puts("Test OK", &Font_11x18, SSD1306_COLOR_WHITE); // Ecrire
+
+        SSD1306_UpdateScreen();            // Envoyer à l'écran (Indispensable !)
+    }
+    else {
+        // Échec de l'init : Vérifier câblage ou adresse I2C
+    }
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
