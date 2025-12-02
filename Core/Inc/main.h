@@ -49,6 +49,8 @@ extern "C" {
 
 /* USER CODE END EM */
 
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
+
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 
@@ -59,8 +61,40 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define Vp_Pin GPIO_PIN_1
 #define Vp_GPIO_Port GPIOA
+#define RX2_Pin GPIO_PIN_3
+#define RX2_GPIO_Port GPIOA
 #define LED_Pin GPIO_PIN_5
 #define LED_GPIO_Port GPIOA
+#define SCL_Pin GPIO_PIN_7
+#define SCL_GPIO_Port GPIOA
+#define SW1_Pin GPIO_PIN_0
+#define SW1_GPIO_Port GPIOB
+#define SW2_Pin GPIO_PIN_1
+#define SW2_GPIO_Port GPIOB
+#define PWMB_Pin GPIO_PIN_8
+#define PWMB_GPIO_Port GPIOA
+#define PWMR_Pin GPIO_PIN_9
+#define PWMR_GPIO_Port GPIOA
+#define PWMG_Pin GPIO_PIN_10
+#define PWMG_GPIO_Port GPIOA
+#define USB_N_Pin GPIO_PIN_11
+#define USB_N_GPIO_Port GPIOA
+#define USB_P_Pin GPIO_PIN_12
+#define USB_P_GPIO_Port GPIOA
+#define SWDIO_Pin GPIO_PIN_13
+#define SWDIO_GPIO_Port GPIOA
+#define SWCLK_Pin GPIO_PIN_14
+#define SWCLK_GPIO_Port GPIOA
+#define SW3_Pin GPIO_PIN_3
+#define SW3_GPIO_Port GPIOB
+#define SDA_Pin GPIO_PIN_4
+#define SDA_GPIO_Port GPIOB
+#define OLED_RST_Pin GPIO_PIN_5
+#define OLED_RST_GPIO_Port GPIOB
+#define TX1_Pin GPIO_PIN_6
+#define TX1_GPIO_Port GPIOB
+#define RX1_Pin GPIO_PIN_7
+#define RX1_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
