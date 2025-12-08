@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "dmx512.h"
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -122,6 +123,34 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
+
+	      /* USER CODE END WHILE */
+
+	      /* USER CODE BEGIN 3 */
+
+	  // Vérifier si une nouvelle trame DMX est disponible
+	  if (DMX_IsNewFrameAvailable())
+	  {
+		  DMX_DataTypeDef dmxData, finalData;
+
+		  // Décoder la trame DMX
+		  if (DMX_DecodeFrame(&dmxData))
+		  {
+			  // ===== AFFICHAGE DES DONNÉES AVEC DIMMER APPLIQUÉ =====
+			  char buffer[200];
+			  DMX_ApplyDimmer(&dmxData, &finalData);
+
+			  sprintf(buffer, "FINAL    R:%03d G:%03d B:%03d (Dimmer appliqué)\r\n\r\n",
+					  finalData.red,
+					  finalData.green,
+					  finalData.blue);
+
+//			  CDC_Transmit_FS((uint8_t*)buffer, strlen(buffer));
+
+			  // TODO : Appliquer finalData aux PWM
+			  // __HAL_TIM_SET_COMPARE(&htimX, TIM_CHANNEL_X, finalData.red);
+		  }
+	  }
   }
   /* USER CODE END 3 */
 }

@@ -22,6 +22,7 @@
 #include "stm32l4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "dmx512.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -243,5 +244,28 @@ void I2C3_EV_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+
+/**
+  * @brief  Callback appelé quand une erreur de réception UART se produit
+  * @param  huart: pointeur vers le handle UART
+  * @retval None
+  * @note   Dans le contexte DMX, cette erreur correspond au BREAK
+  */
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+    // Appeler le gestionnaire DMX
+    DMX_ErrorCallback(huart);
+}
+
+/**
+  * @brief  Callback appelé quand un octet UART est reçu
+  * @param  huart: pointeur vers le handle UART
+  * @retval None
+  */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+    // Appeler le gestionnaire DMX
+    DMX_RxCallback(huart);
+}
 
 /* USER CODE END 1 */
