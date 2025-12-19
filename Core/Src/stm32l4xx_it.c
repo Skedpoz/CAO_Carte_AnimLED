@@ -22,6 +22,7 @@
 #include "stm32l4xx_it.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,6 +56,7 @@
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
+extern PCD_HandleTypeDef hpcd_USB_FS;
 extern I2C_HandleTypeDef hi2c3;
 extern TIM_HandleTypeDef htim2;
 extern UART_HandleTypeDef huart1;
@@ -229,6 +231,20 @@ void USART1_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles USB event interrupt through EXTI line 17.
+  */
+void USB_IRQHandler(void)
+{
+  /* USER CODE BEGIN USB_IRQn 0 */
+
+  /* USER CODE END USB_IRQn 0 */
+  HAL_PCD_IRQHandler(&hpcd_USB_FS);
+  /* USER CODE BEGIN USB_IRQn 1 */
+
+  /* USER CODE END USB_IRQn 1 */
+}
+
+/**
   * @brief This function handles I2C3 event interrupt.
   */
 void I2C3_EV_IRQHandler(void)
@@ -243,5 +259,26 @@ void I2C3_EV_IRQHandler(void)
 }
 
 /* USER CODE BEGIN 1 */
+
+/**
+  * @brief  Callback appelé quand une erreur de réception UART se produit
+  * @param  huart: pointeur vers le handle UART
+  * @retval None
+  * @note   Dans le contexte DMX, cette erreur correspond au BREAK
+  */
+void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
+{
+
+}
+
+/**
+  * @brief  Callback appelé quand un octet UART est reçu
+  * @param  huart: pointeur vers le handle UART
+  * @retval None
+  */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+
+}
 
 /* USER CODE END 1 */
