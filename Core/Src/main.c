@@ -107,6 +107,7 @@ int main(void)
   /* USER CODE BEGIN 2 */
   DMX_Init(&huart1, 1);
 
+  HAL_GPIO_WritePin(LED_GPIO_Port, LED_Pin, 0);
   HAL_GPIO_WritePin(OLED_RST_GPIO_Port, OLED_RST_Pin, 0);
   HAL_Delay(100);
   HAL_GPIO_WritePin(OLED_RST_GPIO_Port, OLED_RST_Pin, 1);
